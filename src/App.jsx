@@ -1,11 +1,15 @@
 import "./reset.css";
 import "./App.css";
 import React, { useState } from "react";
-import uuid from "react-uuid";
+import AddTodo from "./components/AddTodo";
+import Working from "./components/Working";
+import Done from "./components/Done";
+
 // import { styled } from "styled-components";
 
 function App() {
   const [todos, setTodos] = useState([]);
+
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -38,7 +42,6 @@ function App() {
       setContent("");
     }
   };
-
   const todoDeleteBtnHandler = (id) => {
     const deleteTodo = todos.filter((todo) => {
       return todo.id !== id;
@@ -71,23 +74,7 @@ function App() {
         <h1>My Todo List</h1>
         <span>React</span>
       </header>
-      <form>
-        <div>
-          <span>제목</span>
-          <input
-            type="text"
-            value={title}
-            onChange={todoTitleOnChangeHandler}
-          />
-          <span>내용</span>
-          <input
-            type="text"
-            value={content}
-            onChange={todoContentOnChangeHandler}
-          />
-        </div>
-        <button onClick={todoAddBtnHandler}>추가하기</button>
-      </form>
+      <AddTodo todos={todos} setTodos={setTodos} />
       <div>
         <h2>Working..🔥</h2>
         <ul>
@@ -97,16 +84,11 @@ function App() {
             })
             .map((todo) => {
               return (
-                <li key={todo.id}>
-                  <h3>{todo.title}</h3>
-                  <p>{todo.content}</p>
-                  <button onClick={() => todoDeleteBtnHandler(todo.id)}>
-                    삭제하기
-                  </button>
-                  <button onClick={() => todoDoneBtnHandler(todo.id)}>
-                    완료
-                  </button>
-                </li>
+                <Working
+                  todo={todo}
+                  todoDoneBtnHandler={todoDoneBtnHandler}
+                  todoDeleteBtnHandler={todoDeleteBtnHandler}
+                />
               );
             })}
         </ul>
@@ -120,16 +102,11 @@ function App() {
             })
             .map((todo) => {
               return (
-                <li key={todo.id}>
-                  <h3>{todo.title}</h3>
-                  <p>{todo.content}</p>
-                  <button onClick={() => todoDeleteBtnHandler(todo.id)}>
-                    삭제하기
-                  </button>
-                  <button onClick={() => todoCancleBtnHandler(todo.id)}>
-                    취소
-                  </button>
-                </li>
+                <Done
+                  todo={todo}
+                  todoCancleBtnHandler={todoCancleBtnHandler}
+                  todoDeleteBtnHandler={todoDeleteBtnHandler}
+                />
               );
             })}
         </ul>
