@@ -4,11 +4,44 @@ import React, { useState } from "react";
 import AddTodo from "./components/AddTodo";
 import Working from "./components/Working";
 import Done from "./components/Done";
+
 // import { styled } from "styled-components";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const todoTitleOnChangeHandler = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const todoContentOnChangeHandler = (event) => {
+    setContent(event.target.value);
+  };
+
+  const todoAddBtnHandler = (event) => {
+    event.preventDefault();
+    if (title === "" && content === "") {
+      alert("제목과 내용을 입력해주세요.");
+    } else if (title === "") {
+      alert("제목을 입력해주세요.");
+    } else if (content === "") {
+      alert("내용을 입력해주세요.");
+    } else {
+      const newTodo = {
+        id: uuid(),
+        title,
+        content,
+        isDone: false,
+      };
+      setTodos([...todos, newTodo]);
+      setTitle("");
+      setContent("");
+    }
+  };
   const todoDeleteBtnHandler = (id) => {
     const deleteTodo = todos.filter((todo) => {
       return todo.id !== id;
