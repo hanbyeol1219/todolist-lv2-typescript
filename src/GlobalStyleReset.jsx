@@ -1,9 +1,7 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+const { createGlobalStyle } = require("styled-components");
 
-html,
+const GlobalStyleReset = createGlobalStyle`
+  html,
 body,
 div,
 span,
@@ -127,3 +125,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+*{
+  box-sizing: border-box;
+}
+
+`;
+
+export default GlobalStyleReset;
