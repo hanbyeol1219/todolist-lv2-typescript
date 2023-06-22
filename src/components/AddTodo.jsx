@@ -1,8 +1,13 @@
-import React from "react";
-import uuid from "react-uuid";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { v4 as uuid } from "uuid";
+import { addTodo } from "../redux/modules/todo";
+import S from "../AddTodoStyle";
 
-const AddTodo = ({ todos, setTodos }) => {
+const AddTodo = () => {
+  // dispatch 가져오기
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -14,8 +19,7 @@ const AddTodo = ({ todos, setTodos }) => {
     setContent(event.target.value);
   };
 
-  const todoAddBtnHandler = (event) => {
-    event.preventDefault();
+  const todoAddBtnHandler = () => {
     if (title === "" && content === "") {
       alert("제목과 내용을 입력해주세요.");
     } else if (title === "") {
@@ -29,26 +33,38 @@ const AddTodo = ({ todos, setTodos }) => {
         content,
         isDone: false,
       };
-      setTodos([...todos, newTodo]);
       setTitle("");
       setContent("");
+
+      dispatch(addTodo(newTodo));
     }
   };
 
   return (
-    <form>
-      <div>
-        <span>제목</span>
-        <input type="text" value={title} onChange={todoTitleOnChangeHandler} />
-        <span>내용</span>
-        <input
+    <S.TodoListPage_Form>
+      <S.TodoListPage_FormInputContainer>
+        <S.TodoListPage_FormText>제목</S.TodoListPage_FormText>
+        <S.TodoListPage_FormInput
+          type="text"
+          value={title}
+          onChange={todoTitleOnChangeHandler}
+        />
+        <S.TodoListPage_FormText>내용</S.TodoListPage_FormText>
+        <S.TodoListPage_FormInput
           type="text"
           value={content}
           onChange={todoContentOnChangeHandler}
         />
-      </div>
-      <button onClick={todoAddBtnHandler}>추가하기</button>
-    </form>
+      </S.TodoListPage_FormInputContainer>
+      <S.TodoListPage_FormBtn
+        onClick={(event) => {
+          event.preventDefault();
+          todoAddBtnHandler();
+        }}
+      >
+        추가하기
+      </S.TodoListPage_FormBtn>
+    </S.TodoListPage_Form>
   );
 };
 
