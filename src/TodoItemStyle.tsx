@@ -29,7 +29,10 @@ const S = {
     margin: 20px 0;
   `,
 
-  TodoListPage_TodoBtns: styled.button`
+  TodoListPage_TodoBtns: styled.button<{
+    borderColor: string;
+    marginRight?: string;
+  }>`
     background-color: transparent;
     width: 32%;
     border: 2px solid ${(props) => props.borderColor};

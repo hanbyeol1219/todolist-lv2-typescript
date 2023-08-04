@@ -2,8 +2,13 @@ import { useDispatch } from "react-redux";
 import { deleteTodo, updateTodo } from "../redux/modules/todo";
 import { Link } from "react-router-dom";
 import S from "../TodoItemStyle";
+import { Todo } from "../model/todo";
 
-const TodoItem = ({ todo }) => {
+interface TodoItemProps {
+  todo: Todo;
+}
+
+const TodoItem = ({ todo }: TodoItemProps) => {
   const dispatch = useDispatch();
 
   return (

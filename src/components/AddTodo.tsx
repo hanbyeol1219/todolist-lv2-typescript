@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { addTodo } from "../redux/modules/todo";
@@ -11,11 +11,14 @@ const AddTodo = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const todoTitleOnChangeHandler = (event) => {
+  const todoTitleOnChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 
-  const todoContentOnChangeHandler = (event) => {
+  // const todoContentOnChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const todoContentOnChangeHandler = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setContent(event.target.value);
   };
 

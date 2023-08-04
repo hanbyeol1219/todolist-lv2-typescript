@@ -4,16 +4,17 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import S from "../AboutTodoStyle";
+import { RootState } from "../redux/config/configStore";
 
 const AboutTodo = () => {
-  const { todos } = useSelector((state) => state.todoReducer);
+  const { todos } = useSelector((state: RootState) => state.todoReducer);
   console.log(todos);
 
   const params = useParams();
 
   const foundTodo = todos.find((todo) => {
-    console.log("params.id", params.id);
-    console.log("todo.id", todo.id);
+    // console.log("params.id", params.id);
+    // console.log("todo.id", todo.id);
     return todo.id === params.id;
   });
 

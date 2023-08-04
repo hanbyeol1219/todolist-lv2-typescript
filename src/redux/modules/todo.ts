@@ -1,4 +1,5 @@
 import uuid from "react-uuid";
+import { Todo } from "../../model/todo";
 
 const ADD_TODO = "ADD_TODO";
 const DELETE_TODO = "DELETE_TODO";
@@ -28,28 +29,28 @@ const initialState = {
   ],
 };
 
-export const addTodo = (newTodo) => {
+export const addTodo = (newTodo: Todo) => {
   return {
     type: ADD_TODO,
     payload: newTodo,
   };
 };
 
-export const deleteTodo = (id) => {
+export const deleteTodo = (id: string) => {
   return {
     type: DELETE_TODO,
     payload: id,
   };
 };
 
-export const updateTodo = (id) => {
+export const updateTodo = (id: string) => {
   return {
     type: UPDATE_TODO,
     payload: id,
   };
 };
 
-const todoReducer = (state = initialState, action) => {
+const todoReducer = (state = initialState, action: any) => {
   console.log("check", state, action);
   switch (action.type) {
     case ADD_TODO:
